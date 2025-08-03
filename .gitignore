@@ -37,6 +37,11 @@ docs/GIT_PUBLICATION_GUIDE.md
 nul
 tatus
 
+# バックアップファイル・内部ドキュメント
+src_backup/
+auto_mosaic/src_backup/
+auto_mosaic/API_Documentation.md
+
 # ==================================================
 # Python関連 (Python)
 # ==================================================
