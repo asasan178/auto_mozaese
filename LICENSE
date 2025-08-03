@@ -1,0 +1,39 @@
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2025 Auto Mosaic Development Team
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+==========================================================================
+
+This software uses the following third-party components:
+
+1. YOLOv8 (Ultralytics)
+   - License: AGPL-3.0
+   - Source: https://github.com/ultralytics/ultralytics
+   - Copyright: Ultralytics
+
+2. Segment Anything Model (SAM)
+   - License: Apache License 2.0
+   - Source: https://github.com/facebookresearch/segment-anything
+   - Copyright: Meta AI Research
+
+3. Anime NSFW Detection v4.0
+   - Author: newtextdoc11996
+   - Source: https://civitai.com/models/1313556?modelVersionId=1863248
+   - License: Commercial use permitted (redistribution prohibited, attribution required)
+
+For the full text of the GNU Affero General Public License v3.0, see:
+https://www.gnu.org/licenses/agpl-3.0.html 

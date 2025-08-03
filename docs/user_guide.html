@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自動モザエセ v1.0 - ユーザーガイド</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .screenshot {
+            border: 3px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+            height: 1px;
+            margin: 2rem 0;
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background-color: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .warning-block {
+            background-color: #fef3cd;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+        
+        .info-block {
+            background-color: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="mb-6">
+                    <i class="fas fa-magic text-6xl mb-4"></i>
+                </div>
+                <h1 class="text-5xl font-bold mb-4">自動モザエセ v1.0</h1>
+                <p class="text-xl mb-6">AI技術を活用したアニメ・イラスト画像のモザイク処理ツール</p>
+                <div class="bg-white bg-opacity-20 rounded-lg p-6 inline-block">
+                    <p class="text-lg">完全ユーザーガイド</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- 概要セクション -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-info-circle feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">概要</h2>
+                </div>
+                
+                <p class="text-lg leading-relaxed mb-6">
+                    自動モザエセ v1.0は、AI技術を活用してアニメ・イラスト画像の男女局部を自動検出し、適切なモザイク処理を適用するツールです。YOLO検出 + SAM分割の高精度処理により、自然な仕上がりを実現し、FANZA基準対応の安全なモザイク処理を提供します。
+                </p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+                        <i class="fas fa-brain feature-icon text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">AI自動検出</h3>
+                        <p class="text-sm">YOLOv8 + SAM による高精度検出システム</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+                        <i class="fas fa-shield-alt feature-icon text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Discord認証</h3>
+                        <p class="text-sm">安全で簡単なDiscord OAuth2認証システム</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                        <i class="fas fa-palette feature-icon text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">高品質モザイク</h3>
+                        <p class="text-sm">ブロック・ガウス・白塗り・黒塗りに対応</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
+                        <i class="fas fa-layer-group feature-icon text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">バッチ処理</h3>
+                        <p class="text-sm">複数画像の一括処理</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+                        <i class="fas fa-mobile-alt feature-icon text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">直感的UI</h3>
+                        <p class="text-sm">日本語対応の使いやすいインターフェース</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 動作要件セクション -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-desktop feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">動作要件</h2>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">システム要件</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th class="w-24">項目</th>
+                                    <th>最小要件</th>
+                                    <th>推奨要件</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold">OS</td>
+                                    <td>Windows 10 (64bit)</td>
+                                    <td>Windows 11 最新版</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="font-bold">メモリ</td>
+                                    <td>8GB</td>
+                                    <td>16GB以上</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">ストレージ</td>
+                                    <td>5GB以上の空き容量</td>
+                                    <td>10GB以上</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="font-bold">ネットワーク</td>
+                                    <td>インターネット接続（認証時）</td>
+                                    <td>常時接続</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">GPU</td>
+                                    <td>なし（CPU処理可能）</td>
+                                    <td>NVIDIA製GPU（処理高速化）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">対応ファイル形式</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div class="bg-blue-50 p-3 rounded-lg text-center">
+                            <i class="fas fa-file-image text-blue-500 text-xl mb-2"></i>
+                            <p class="font-semibold">JPEG</p>
+                            <p class="text-xs text-gray-600">.jpg, .jpeg</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg text-center">
+                            <i class="fas fa-file-image text-green-500 text-xl mb-2"></i>
+                            <p class="font-semibold">PNG</p>
+                            <p class="text-xs text-gray-600">.png</p>
+                        </div>
+                        <div class="bg-yellow-50 p-3 rounded-lg text-center">
+                            <i class="fas fa-file-image text-yellow-500 text-xl mb-2"></i>
+                            <p class="font-semibold">BMP</p>
+                            <p class="text-xs text-gray-600">.bmp</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg text-center">
+                            <i class="fas fa-file-image text-purple-500 text-xl mb-2"></i>
+                            <p class="font-semibold">TIFF</p>
+                            <p class="text-xs text-gray-600">.tiff, .tif</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-lg text-center">
+                            <i class="fas fa-file-image text-red-500 text-xl mb-2"></i>
+                            <p class="font-semibold">WebP</p>
+                            <p class="text-xs text-gray-600">.webp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 初回起動・認証セクション -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-rocket feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">初回起動・認証</h2>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">1. アプリケーションの起動</h3>
+                    <div class="code-block">
+                        「自動モザエセ.exe」をダブルクリックして起動
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">2. 初回セットアップ</h3>
+                    <p class="mb-4">アプリケーションを初回起動すると、セットアップダイアログが表示されます。</p>
+                    
+                    <div class="mb-6">
+                        <img src="./images/initial_setup_dialog.png" alt="初回セットアップダイアログ" class="screenshot w-full max-w-lg mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">初回セットアップダイアログ</p>
+                    </div>
+
+                    <p class="mb-4">「はい」を選択すると、詳細なセットアップ画面が表示されます。</p>
+
+                    <div class="mb-6">
+                        <img src="./images/welcome_screen.png" alt="自動モザエセv1.0ようこそ画面" class="screenshot w-full max-w-4xl mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">自動モザエセv1.0 初回セットアップ画面</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h4 class="font-bold mb-2"><i class="fas fa-info-circle mr-2"></i>セットアップ内容</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>データフォルダの作成:</strong> アプリケーションの動作に必要なフォルダ構造を作成</li>
+                            <li><strong>モデルファイルのダウンロード:</strong> AI検出に必要なモデルファイルを自動ダウンロード</li>
+                            <li><strong>デスクトップショートカット:</strong> 便利なショートカットの作成（オプション）</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-3 text-lg">必要なモデルファイル</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-blue-800">Anime NSFW Detection v4.0</h5>
+                                <p class="text-sm text-blue-600 mb-2">アニメ・イラスト画像の検出用モデル</p>
+                                <p class="text-xs text-gray-600">自動ダウンロード対応</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-green-800">SAM ViT-B</h5>
+                                <p class="text-sm text-green-600 mb-2">画像分割用モデル</p>
+                                <p class="text-xs text-gray-600">高精度セグメンテーション</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <img src="./images/setup_complete.png " alt="セットアップ完了" class="screenshot w-full max-w-md mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">セットアップ完了画面</p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">3. CivitAI API設定（オプション）</h3>
+                    <p class="mb-4">モデルファイルの自動ダウンロードを有効にするため、CivitAI APIキーの設定が推奨されます。</p>
+                    
+                    <div class="mb-6">
+                        <img src="./images/civitai_api_setup.png " alt="CivitAI API設定" class="screenshot w-full max-w-lg mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">CivitAI API設定画面</p>
+                    </div>
+
+                    <div class="warning-block">
+                        <h4 class="font-bold mb-2"><i class="fas fa-exclamation-triangle mr-2"></i>APIキーについて</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>APIキーをお持ちの場合:</strong> 入力フィールドにキーを入力し、自動ダウンロードを有効化</li>
+                            <li><strong>APIキーをお持ちでない場合:</strong> 「スキップ」を選択し、手動でモデルファイルをダウンロード</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">4. Discord認証</h3>
+                    <p class="mb-4">アプリケーションの使用にはDiscord認証が必要です。認証プロセスは以下の手順で進行します。</p>
+
+                    <div class="mb-6">
+                        <img src="./images/discord_auth_start.png" alt="Discord認証画面" class="screenshot w-full max-w-lg mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">Discord認証開始画面</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold mb-3">認証手順</h4>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>「Discord認証開始」ボタンをクリック</li>
+                                <li>ブラウザでDiscord認証画面が表示</li>
+                                <li>Discordアカウントでログイン</li>
+                                <li>アプリケーションへのアクセスを許可</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <div class="info-block">
+                                <h4 class="font-bold mb-2"><i class="fas fa-clock mr-2"></i>重要事項</h4>
+                                <ul class="list-disc list-inside space-y-1 text-sm">
+                                    <li>有効なDiscordアカウントが必要</li>
+                                    <li>認証タイムアウト: 24秒</li>
+                                    <li>認証完了後、ダイアログは自動的に閉じます</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <img src="./images/discord_auth_page.png" alt="Discord認証ページ" class="screenshot w-full max-w-md mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">Discord認証許可ページ</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <img src="./images/discord_auth_success.png" alt="認証成功画面" class="screenshot w-full">
+                            <p class="text-center text-sm text-gray-600 mt-2">Discord認証成功</p>
+                        </div>
+                        <div>
+                            <img src="./images/discord_code_success.png" alt="Discord認証コード取得成功" class="screenshot w-full">
+                            <p class="text-center text-sm text-gray-600 mt-2">認証コード取得完了</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <h4 class="font-bold mb-2"><i class="fas fa-shield-alt mr-2"></i>プライバシー保護</h4>
+                        <p class="text-sm">認証では以下の情報のみアクセスします：</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm mt-2">
+                            <li>ユーザー名、アバター画像、バナー</li>
+                            <li>所属サーバーの確認</li>
+                            <li>メンバー情報の閲覧</li>
+                        </ul>
+                        <p class="text-sm mt-2 text-gray-600">※ メッセージの読み書きは行いません</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- メイン画面の使用方法 -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-cogs feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">メイン画面の使用方法</h2>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">1. メイン設定画面</h3>
+                    <p class="mb-4">アプリケーションのメイン画面では、詳細な設定オプションが利用できます。</p>
+                    
+                    <div class="mb-6">
+                        <img src="./images/main_settings_screen.png" alt="メイン設定画面" class="screenshot w-full max-w-4xl mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">メイン設定画面 - 高度なオプション</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold mb-3 text-lg">高度なオプション</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <div>
+                                        <strong>時系マスク:</strong> 高速・効率的な処理方法
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-circle text-gray-400 mr-2 mt-1"></i>
+                                    <div>
+                                        <strong>定時マスク:</strong> より高精度な処理（低速）
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-3 text-lg">ファイル命名設定</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-circle text-gray-400 mr-2 mt-1"></i>
+                                    <div>
+                                        <strong>そのまま:</strong> 元ファイル名を保持
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <div>
+                                        <strong>プレフィックス追加:</strong> MC_を先頭に付加
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="warning-block">
+                        <h4 class="font-bold mb-2"><i class="fas fa-star mr-2"></i>FANZA基準対応</h4>
+                        <p class="text-sm">
+                            アプリケーションはFANZA基準（画像の20％、身体の4px）に対応しており、
+                            法的基準に適合したモザイク処理を提供します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700">2. 入力・出力設定画面</h3>
+                    <div class="mb-6">
+                        <img src="./images/input_output_settings.png" alt="入力・出力設定画面" class="screenshot w-full max-w-4xl mx-auto">
+                        <p class="text-center text-sm text-gray-600 mt-2">入力・出力設定画面</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-3 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold mb-3 text-lg">入力設定</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-folder-open text-blue-500 mr-2"></i>画像選択: 処理したい画像を選択</li>
+                                <li><i class="fas fa-layer-group text-blue-500 mr-2"></i>フォルダ選択: 複数画像の一括処理</li>
+                                <li><i class="fas fa-list text-blue-500 mr-2"></i>リストクリア: 選択した画像をクリア</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-3 text-lg">基本設定</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-crosshairs text-green-500 mr-2"></i>検出自信度: 0.25 (AI検出の閾値)</li>
+                                <li><i class="fas fa-expand text-green-500 mr-2"></i>ぼかし: 0.5 (モザイクのぼかし強度)</li>
+                                <li><i class="fas fa-ruler text-green-500 mr-2"></i>除外判基準: 15px (小さい領域の除外)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-3 text-lg">効果オプション</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-check-square text-purple-500 mr-2"></i>ブロックモザイク</li>
+                                <li><i class="fas fa-check-square text-purple-500 mr-2"></i>ガウスモザイク</li>
+                                <li><i class="fas fa-square text-gray-400 mr-2"></i>白塗り</li>
+                                <li><i class="fas fa-square text-gray-400 mr-2"></i>黒塗り</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2 text-blue-800">処理実行</h4>
+                            <p class="text-sm text-blue-600 mb-3">設定完了後、モザイク処理を開始できます。</p>
+                            <div class="code-block text-xs">
+                                モザイク処理開始ボタンをクリック
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2 text-green-800">出力フォルダ</h4>
+                            <p class="text-sm text-green-600 mb-3">処理済み画像の保存先を指定できます。</p>
+                            <div class="code-block text-xs">
+                                出力フォルダを選択ボタンで設定
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- バッチ処理機能 -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-layer-group feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">バッチ処理機能</h2>
+                </div>
+
+                <p class="text-lg leading-relaxed mb-6">
+                    自動モザエセ v1.0は、複数の画像を一度に処理できるバッチ処理機能を提供します。
+                    大量の画像を効率的に処理したい場合に非常に便利です。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700">バッチ処理の手順</h3>
+                        <ol class="list-decimal list-inside space-y-3">
+                            <li class="flex items-start">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">1</span>
+                                <div>
+                                    <strong>フォルダ選択:</strong> 処理したい画像が含まれるフォルダを選択
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">2</span>
+                                <div>
+                                    <strong>設定確認:</strong> モザイクタイプや強度などの設定を確認
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">3</span>
+                                <div>
+                                    <strong>出力先指定:</strong> 処理済み画像の保存先フォルダを指定
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">4</span>
+                                <div>
+                                    <strong>処理開始:</strong> バッチ処理を開始し、進行状況を監視
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700">処理性能</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-tachometer-alt text-green-600 mr-2"></i>
+                                    <h4 class="font-bold text-green-800">処理速度</h4>
+                                </div>
+                                <p class="text-sm text-green-700">GPU使用時: 約10-15画像/分</p>
+                                <p class="text-sm text-green-700">CPU使用時: 約3-5画像/分</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-memory text-blue-600 mr-2"></i>
+                                    <h4 class="font-bold text-blue-800">メモリ使用量</h4>
+                                </div>
+                                <p class="text-sm text-blue-700">推奨: 16GB以上（大量処理時）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2"></i>バッチ処理のコツ</h4>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li><strong>ファイル形式の統一:</strong> 同じ形式の画像をまとめて処理すると効率的</li>
+                        <li><strong>画像サイズの考慮:</strong> 大きな画像は処理時間が長くなります</li>
+                        <li><strong>出力先の確認:</strong> 十分な空き容量があることを確認</li>
+                        <li><strong>処理中断:</strong> 緊急時は処理を中断できます</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- トラブルシューティング -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-tools feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">トラブルシューティング</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                            よくある問題と解決方法
+                        </h3>
+
+                        <div class="grid gap-6">
+                            <div class="border border-red-200 rounded-lg p-6">
+                                <h4 class="font-bold text-red-800 mb-3">アプリケーションが起動しない</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><strong>原因:</strong> システム要件が満たされていない、またはファイルが破損している</p>
+                                    <p><strong>解決方法:</strong></p>
+                                    <ul class="list-disc list-inside ml-4 space-y-1">
+                                        <li>Windows 10 (64bit) 以上であることを確認</li>
+                                        <li>必要なランタイム（Visual C++ Redistributable）をインストール</li>
+                                        <li>アプリケーションを再ダウンロード・再インストール</li>
+                                        <li>管理者権限で実行を試行</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border border-yellow-200 rounded-lg p-6">
+                                <h4 class="font-bold text-yellow-800 mb-3">Discord認証に失敗する</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><strong>原因:</strong> ネットワーク接続の問題、またはDiscordサービスの不具合</p>
+                                    <p><strong>解決方法:</strong></p>
+                                    <ul class="list-disc list-inside ml-4 space-y-1">
+                                        <li>インターネット接続を確認</li>
+                                        <li>ファイアウォール・アンチウイルスソフトの設定を確認</li>
+                                        <li>別のブラウザでDiscord認証を試行</li>
+                                        <li>時間を置いて再度認証を試行</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border border-blue-200 rounded-lg p-6">
+                                <h4 class="font-bold text-blue-800 mb-3">モデルファイルのダウンロードに失敗する</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><strong>原因:</strong> ネットワーク接続が不安定、またはサーバーの問題</p>
+                                    <p><strong>解決方法:</strong></p>
+                                    <ul class="list-disc list-inside ml-4 space-y-1">
+                                        <li>安定したネットワーク環境で再試行</li>
+                                        <li>CivitAI APIキーが正しく設定されていることを確認</li>
+                                        <li>手動でモデルファイルをダウンロードし、modelsフォルダに配置</li>
+                                        <li>十分なディスク容量があることを確認</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border border-green-200 rounded-lg p-6">
+                                <h4 class="font-bold text-green-800 mb-3">処理速度が遅い</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><strong>原因:</strong> ハードウェア性能の不足、または設定の問題</p>
+                                    <p><strong>解決方法:</strong></p>
+                                    <ul class="list-disc list-inside ml-4 space-y-1">
+                                        <li>GPUを使用可能な場合は、GPU処理を有効化</li>
+                                        <li>他のアプリケーションを終了してメモリを確保</li>
+                                        <li>画像サイズを調整（必要に応じてリサイズ）</li>
+                                        <li>検出自信度を調整して処理負荷を軽減</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border border-purple-200 rounded-lg p-6">
+                                <h4 class="font-bold text-purple-800 mb-3">モザイク処理の精度が低い</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><strong>原因:</strong> 画像の特性や設定パラメータの問題</p>
+                                    <p><strong>解決方法:</strong></p>
+                                    <ul class="list-disc list-inside ml-4 space-y-1">
+                                        <li>検出自信度を調整（0.15-0.35の範囲で実験）</li>
+                                        <li>除外判基準を調整して小さな領域を適切に処理</li>
+                                        <li>定時マスクモードを使用してより高精度な処理を実行</li>
+                                        <li>画像の品質と解像度を確認</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-life-ring text-blue-500 mr-2"></i>
+                            サポート情報
+                        </h3>
+                        
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-bold text-blue-800 mb-3">技術サポート</h4>
+                                    <ul class="space-y-2 text-sm text-blue-700">
+                                        <li><i class="fas fa-comments mr-2"></i>コミュニティフォーラム: ユーザー間の情報共有</li>
+                                        <li><i class="fas fa-book mr-2"></i>ドキュメント: 使用方法</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-blue-800 mb-3">システム情報の確認</h4>
+                                    <div class="code-block text-xs">
+                                        ヘルプメニュー → システム情報
+                                        で詳細なシステム情報を確認できます
+                                    </div>
+                                    <p class="text-sm text-blue-700 mt-2">
+                                        問題報告時に、この情報をお知らせください。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- FAQ -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-question-circle feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">よくある質問（FAQ）</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h4 class="font-bold text-lg text-gray-800 mb-2">Q: 処理できる画像の最大サイズは？</h4>
+                        <p class="text-gray-600">
+                            A: メモリ容量に依存します。
+                            大きな画像を処理する場合は、16GB以上のRAMを推奨します。
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-6">
+                        <h4 class="font-bold text-lg text-gray-800 mb-2">Q: オフラインでも使用できますか？</h4>
+                        <p class="text-gray-600">
+                            A: 初回認証とモデルファイルのダウンロード後は、オフラインでも使用可能です。
+                            ただし、定期的な認証確認のためインターネット接続が必要な場合があります。
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-6">
+                        <h4 class="font-bold text-lg text-gray-800 mb-2">Q: 処理結果に満足できない場合は？</h4>
+                        <p class="text-gray-600">
+                            A: 検出自信度や除外基準などのパラメータを調整することで、
+                            処理精度を向上させることができます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg p-8 text-center">
+            <div class="mb-4">
+                <i class="fas fa-magic text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">自動モザエセ v1.0</h3>
+                <p class="text-gray-300">AI技術を活用したアニメ・イラスト画像のモザイク処理ツール</p>
+            </div>
+            <div class="border-t border-gray-700 pt-4 mt-4">
+                <p class="text-sm text-gray-400">
+                    © 2025 自動モザエセ. All rights reserved. | 
+                    このドキュメントは自動モザエセ v1.0の公式ユーザーガイドです。
+                </p>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDldnamBs2yaiMlo2A1DV4qbdAyHsoGWTskk1LRfQrLIZ%2B9jaT0sErzD5tQAbstpNtzici3kv46rULoxw99JLvNrIGOrUzY%2FmV2wkHvOAM92kBobtPKcyOD9BZgIjQMaIlIWO%2BZ5VQ8xTCuyus%2BUjcdUnasAK54EG4t8PAraWP5rBQqlsbfYbSRYBNmt7C4AKcRk%2FIHwyQELDikc6I%2Fw2sZ4Puw5rqaQD2IwXAsVc45LwcBDPoUdXlxMpkWR4aidHdpjAPHRnc4y1TmheaxuFjRZGjVu%2F3xS47eIcPF%2BI1JPyJGp8TyonWPNiDet2O%2F3qDIH5GEQadevZFOMzthPmHmVdahY%2BN2HVvdnza3GIBhpcNnISdyactx5fni%2FJqiQa%2Bz%2Bec%2Bs1WNKuZ32bLFyAIzzKgM3tXJMEmAE9PWyWyBJs6yDuqzzseuPi8T9JXWOLWAVQL6my7e5JIL12JiJvxL1VKZsZ%2By6WS0Vbhk2z6D2E07DJ1x7nCwpHd9uwKUznt36JEGrxY4O9McEuKRpFNzI%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDldnamBs2yaiMlo2A1DV4qbdAyHsoGWTskk1LRfQrLIZ+9jaT0sErzD5tQAbstpNtzici3kv46rULoxw99JLvNrIGOrUzY/mV2wkHvOAM92kBobtPKcyOD9BZgIjQMaIlIWO+Z5VQ8xTCuyus+UjcdUnasAK54EG4t8PAraWP5rBQqlsbfYbSRYBNmt7C4AKcRk/IHwyQELDikc6I/w2sZ4Puw5rqaQD2IwXAsVc45LwcBDPoUdXlxMpkWR4aidHdpjAPHRnc4y1TmheaxuFjRZGjVu/3xS47eIcPF+I1JPyJGp8TyonWPNiDet2O/3qDIH5GEQadevZFOMzthPmHmVdahY+N2HVvdnza3GIBhpcNnISdyactx5fni/JqiQa+z+ec+s1WNKuZ32bLFyAIzzKgM3tXJMEmAE9PWyWyBJs6yDuqzzseuPi8T9JXWOLWAVQL6my7e5JIL12JiJvxL1VKZsZ+y6WS0Vbhk2z6D2E07DJ1x7nCwpHd9uwKUznt36JEGrxY4O9McEuKRpFNzI=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

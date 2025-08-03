@@ -1,0 +1,218 @@
+# 自動モザエセ v1.0 - Git Ignore
+
+# ==================================================
+# セキュリティ関連ファイル (Security & Sensitive Files)
+# ==================================================
+
+# 環境変数ファイル（機密情報を含む）
+.env
+.env.local
+.env.production
+.env.development
+
+# 認証関連ファイル（暗号化設定）
+config/auth.dat
+config/auth.salt
+config/auth_config.json
+config/discord_auth/
+config/monthly_auth.dat
+config/first_run_complete
+
+# 機密情報を含むテキストファイル
+*パスワード*.txt
+*password*.txt
+*secret*.txt
+*token*.txt
+*key*.txt
+
+# チャット履歴・会話ログ
+*.specstory
+chat_history/
+conversation_logs/
+
+# Git公開手順ガイド（内部用ドキュメント）
+docs/GIT_PUBLICATION_GUIDE.md
+
+# 一時的なファイル
+nul
+tatus
+
+# ==================================================
+# Python関連 (Python)
+# ==================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# PyInstaller
+*.manifest
+*.spec.bak
+
+# ==================================================
+# 開発環境関連 (Development Environment)
+# ==================================================
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ==================================================
+# 実行時生成ファイル (Runtime Generated Files)
+# ==================================================
+
+# ログファイル
+logs/
+logs/*.log
+*.log
+
+# 一時ファイル
+temp/
+tmp/
+*.tmp
+*.temp
+
+# ==================================================
+# モデルファイル関連 (Model Files)
+# ==================================================
+
+# AIモデル（大容量ファイル - 別途ダウンロード必要）
+models/*.pt
+models/*.pth
+models/*.onnx
+models/*.zip
+models/anime_nsfw_v4/
+nudenet_models/
+sam_models/
+
+# ==================================================
+# 出力・テスト関連 (Output & Test Files)
+# ==================================================
+
+# テスト出力
+test_images/
+output/
+*_mosaic.jpg
+*_mosaic.png
+*_viz.jpg
+*_viz.png
+
+# 処理結果ディレクトリ
+モザイク*/
+元画像/
+実写_元画像/
+自動モザエセ_配布版/
+
+# ==================================================
+# ビルド・配布関連 (Build & Distribution)
+# ==================================================
+
+# バッチファイル（PyInstallerベースビルドでは不要）
+*.bat
+
+# PyInstallerビルド中間ファイル
+builds/build/
+builds/dist/
+
+# 配布パッケージ
+release/
+*.zip
+
+# インストーラー関連
+installer/
+*.iss
+*.exe
+upx.exe
+
+# ==================================================
+# ユーザーデータ (User Data)
+# ==================================================
+
+# ユーザー設定
+user_config.json
+settings.json
+
+# AppDataディレクトリ
+AppData/
+
+# ==================================================
+# 開発・テスト用ファイル (Development & Testing)
+# ==================================================
+
+# テスト用画像・サンプル
+*.jpg
+*.png
+*.jpeg
+*.gif
+*.bmp
+*.webp
+
+# ただし、ドキュメント用画像は除外対象から除く
+!docs/images/*.png
+!docs/images/*.jpg
+!docs/images/*.gif
+
+# ログファイル
+ログ.txt
+*ログ*.txt
+
+# 一時的なテストファイル
+test_*.py
+debug_*.py
+temp_*.py
+
+# ただし、scriptsディレクトリ内のテストは除外しない
+!scripts/auth/test_*.py
+
+# ==================================================
+# ワークスペース・IDE関連 (Workspace & IDE)
+# ==================================================
+
+# VS Code / Cursor
+*.code-workspace
+.cursorindexingignore
+.specstory/
+
+# アイコン・画像ファイル（ドキュメント以外）
+icon.ico
+icon.png
+MC_*.jpg
+c17e5084ca75a592.jpg
+
+# ==================================================
+# レガシー・旧ファイル (Legacy & Old Files)  
+# ==================================================
+
+# 旧コード・アーカイブ
+old/
+
+# 不要になったディレクトリ
+build/
+dist/ 

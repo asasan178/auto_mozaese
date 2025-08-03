@@ -1,0 +1,126 @@
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2025 Auto Mosaic Development Team
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+==========================================================================
+
+                       自動モザエセ - 利用許諾契約書
+
+このソフトウェアは、アニメ・イラスト画像の男女局部を自動検出し、適切な
+モザイク処理を適用するツールです。AI技術（YOLOv8 + SAM + NudeNet）を
+活用した高精度検出システムにより、自然で安全なモザイク処理を提供します。
+
+==========================================================================
+
+使用される第三者コンポーネント:
+
+1. YOLOv8 (Ultralytics)
+   - ライセンス: AGPL-3.0
+   - 提供元: https://github.com/ultralytics/ultralytics
+   - 著作権: Ultralytics
+
+2. Segment Anything Model (SAM)
+   - ライセンス: Apache License 2.0
+   - 提供元: https://github.com/facebookresearch/segment-anything
+   - 著作権: Meta AI Research
+
+3. NudeNet
+   - ライセンス: MIT License
+   - 提供元: https://github.com/notAI-tech/NudeNet
+   - 著作権: notAI-tech
+
+4. Anime NSFW Detection v4.0
+   - 製作者: newtextdoc11996
+   - 提供元: https://civitai.com/models/1313556?modelVersionId=1863248
+   - ライセンス: 商用利用許可済み（再配布禁止、クレジット表示必須）
+
+5. OpenCV (cv2)
+   - ライセンス: Apache License 2.0
+   - 提供元: https://opencv.org/
+
+6. PyTorch
+   - ライセンス: BSD-style License
+   - 提供元: https://pytorch.org/
+
+7. NumPy
+   - ライセンス: BSD License
+   - 提供元: https://numpy.org/
+
+8. PIL/Pillow
+   - ライセンス: HPND License
+   - 提供元: https://pillow.readthedocs.io/
+
+==========================================================================
+
+ライセンス上の制限事項（第三者コンポーネント由来）:
+
+✅ 許可される使用:
+- 個人利用・商用利用
+- ソフトウェアの改変・再配布（AGPL-3.0準拠時）
+- 教育・研究目的での利用
+
+❌ ライセンス上の制限:
+- 改変時はソースコード公開が必要（AGPL-3.0）
+- Anime NSFW Detection v4.0の再配布禁止
+- 適切なクレジット表示・著作権表示が必要
+
+==========================================================================
+
+推奨利用ガイドライン（法的リスク軽減のため）:
+
+本ソフトウェアは技術的ツールであり、利用者は以下の点にご注意ください：
+
+⚠️ ユーザー責任事項:
+- 処理対象画像の適法性確保
+- 肖像権・プライバシー権の尊重
+- 各国・地域の法律遵守
+- 未成年者保護法の遵守
+- 第三者の権利侵害回避
+
+💡 推奨される利用方法:
+- 自作・許可済み画像での利用
+- 適切な年齢制限の実施
+- 商用利用時の法的確認
+- プライバシー保護の徹底
+
+==========================================================================
+
+法的責任と免責事項:
+
+🔶 ユーザーの責任:
+本ソフトウェアの利用に関する法的コンプライアンスは利用者の責任です。
+各国・地域の法律に従って適切にご利用ください。
+
+🔶 開発者の免責:
+- 利用者による違法行為の結果について開発者は責任を負いません
+- ソフトウェアの品質・性能について保証しません
+- 利用による損害・紛争について責任を負いません
+- 第三者の権利侵害について責任を負いません
+
+==========================================================================
+
+AGPL-3.0ライセンスの完全なテキストについては、以下をご参照ください:
+https://www.gnu.org/licenses/agpl-3.0.html
+
+本ソフトウェアを商用環境で使用し、ネットワーク経由でサービスを提供する
+場合は、AGPL-3.0の要件に従ってソースコードを公開する必要があります。
+
+==========================================================================
+
+自動モザエセ v1.0
+Copyright © 2025 Auto Mosaic Development Team
+All rights reserved. 
