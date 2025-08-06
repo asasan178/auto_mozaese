@@ -1852,6 +1852,28 @@ class AutoMosaicGUI:
         
         logger.info(f"Detector settings updated: anime={self.config.use_anime_detector}, nudenet={self.config.use_nudenet}")
     
+    def _on_nudenet_shrink_toggle(self):
+        """Handle NudeNet shrink setting toggle"""
+        self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
+        logger.info(f"NudeNet shrink setting changed to: {self.config.use_nudenet_shrink}")
+    
+    def _on_nudenet_advanced_toggle(self):
+        """Handle NudeNet advanced settings toggle"""
+        if self.nudenet_advanced_var.get():
+            self.nudenet_advanced_frame.grid()
+        else:
+            self.nudenet_advanced_frame.grid_remove()
+    
+    def _update_nudenet_shrink_config(self):
+        """Update NudeNet shrink configuration from GUI values"""
+        if hasattr(self, 'labia_majora_shrink_var'):
+            self.config.nudenet_shrink_values["labia_majora"] = self.labia_majora_shrink_var.get()
+        if hasattr(self, 'penis_shrink_var'):
+            self.config.nudenet_shrink_values["penis"] = self.penis_shrink_var.get()
+        if hasattr(self, 'anus_shrink_var'):
+            self.config.nudenet_shrink_values["anus"] = self.anus_shrink_var.get()
+        if hasattr(self, 'nipples_shrink_var'):
+            self.config.nudenet_shrink_values["nipples"] = self.nipples_shrink_var.get()
 
     def _setup_mosaic_settings(self, parent, row):
         """Setup mosaic type and size settings"""
@@ -2368,6 +2390,67 @@ class AutoMosaicGUI:
                                        command=self._install_nudenet, style="Small.TButton")
                 install_btn.grid(row=0, column=1, sticky=tk.W, padx=(10, 0))
         
+        # NudeNet専用範囲調整設定
+        nudenet_shrink_frame = ttk.LabelFrame(details_frame, text="NudeNet範囲調整設定（陰毛除外用）", padding="5")
+        nudenet_shrink_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(5, 0))
+        
+        self.use_nudenet_shrink_var = tk.BooleanVar(value=self.config.use_nudenet_shrink)
+        nudenet_shrink_check = ttk.Checkbutton(nudenet_shrink_frame, text="NudeNet検出範囲の調整を使用", 
+                                             variable=self.use_nudenet_shrink_var,
+                                             command=self._on_nudenet_shrink_toggle)
+        nudenet_shrink_check.grid(row=0, column=0, columnspan=3, sticky=tk.W)
+        
+        # 説明ラベル
+        shrink_desc = ttk.Label(nudenet_shrink_frame, text="※ 陰毛などの不要部分を除外するため検出範囲を調整できます", 
+                               foreground="gray", font=("", 8))
+        shrink_desc.grid(row=1, column=0, columnspan=3, sticky=tk.W, pady=(2, 5))
+        
+        # 大陰唇縮小設定（最も重要）
+        ttk.Label(nudenet_shrink_frame, text="大陰唇:").grid(row=2, column=0, sticky=tk.W, padx=(20, 5))
+        self.labia_majora_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("labia_majora", -10))
+        labia_spin = ttk.Spinbox(nudenet_shrink_frame, from_=-30, to=10, increment=1,
+                               textvariable=self.labia_majora_shrink_var, width=8)
+        labia_spin.grid(row=2, column=1, sticky=tk.W, padx=(0, 5))
+        ttk.Label(nudenet_shrink_frame, text="px (陰毛除外用、推奨: -5〜-15)", foreground="gray", font=("", 8)).grid(row=2, column=2, sticky=tk.W)
+        
+        # その他の部位設定（折りたたみ可能にする）
+        self.nudenet_advanced_var = tk.BooleanVar(value=False)
+        advanced_check = ttk.Checkbutton(nudenet_shrink_frame, text="その他の部位も調整", 
+                                       variable=self.nudenet_advanced_var,
+                                       command=self._on_nudenet_advanced_toggle)
+        advanced_check.grid(row=3, column=0, columnspan=3, sticky=tk.W, pady=(5, 0))
+        
+        # 詳細設定フレーム（初期状態では非表示）
+        self.nudenet_advanced_frame = ttk.Frame(nudenet_shrink_frame)
+        self.nudenet_advanced_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(5, 0))
+        
+        # 男性器設定
+        ttk.Label(self.nudenet_advanced_frame, text="男性器:").grid(row=0, column=0, sticky=tk.W, padx=(20, 5))
+        self.penis_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("penis", 0))
+        penis_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+                               textvariable=self.penis_shrink_var, width=8)
+        penis_spin.grid(row=0, column=1, sticky=tk.W, padx=(0, 5))
+        ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=0, column=2, sticky=tk.W)
+        
+        # 肛門設定
+        ttk.Label(self.nudenet_advanced_frame, text="肛門:").grid(row=1, column=0, sticky=tk.W, padx=(20, 5))
+        self.anus_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("anus", 0))
+        anus_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+                              textvariable=self.anus_shrink_var, width=8)
+        anus_spin.grid(row=1, column=1, sticky=tk.W, padx=(0, 5))
+        ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=1, column=2, sticky=tk.W)
+        
+        # 乳首設定
+        ttk.Label(self.nudenet_advanced_frame, text="乳首:").grid(row=2, column=0, sticky=tk.W, padx=(20, 5))
+        self.nipples_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("nipples", 0))
+        nipples_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+                                 textvariable=self.nipples_shrink_var, width=8)
+        nipples_spin.grid(row=2, column=1, sticky=tk.W, padx=(0, 5))
+        ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=2, column=2, sticky=tk.W)
+        
+        # 初期状態では詳細設定を非表示
+        self.nudenet_advanced_frame.grid_remove()
+        
         # 初期設定を適用
         self._on_detector_mode_change()
 
@@ -2614,6 +2697,11 @@ class AutoMosaicGUI:
         self.config.use_individual_expansion = self.use_individual_expansion_var.get()
         for part_key, var in self.individual_expansion_vars.items():
             self.config.individual_expansions[part_key] = var.get()
+        
+        # NudeNet専用範囲調整設定の更新
+        if hasattr(self, 'use_nudenet_shrink_var'):
+            self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
+            self._update_nudenet_shrink_config()
         
         # ファイル名設定の更新
         self.config.filename_mode = self.filename_mode_var.get()
@@ -4363,6 +4451,10 @@ class AutoMosaicGUI:
             # 検出器モード
             self.config.detector_mode = self.detector_mode_var.get()
             
+            # NudeNet専用範囲調整設定
+            self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
+            self._update_nudenet_shrink_config()
+            
         except Exception as e:
             logger.error(f"Failed to update config from GUI: {e}")
     
@@ -4402,6 +4494,18 @@ class AutoMosaicGUI:
             
             # 検出器モード
             self.detector_mode_var.set(self.config.detector_mode)
+            
+            # NudeNet専用範囲調整設定
+            if hasattr(self, 'use_nudenet_shrink_var'):
+                self.use_nudenet_shrink_var.set(self.config.use_nudenet_shrink)
+            if hasattr(self, 'labia_majora_shrink_var'):
+                self.labia_majora_shrink_var.set(self.config.nudenet_shrink_values.get("labia_majora", -10))
+            if hasattr(self, 'penis_shrink_var'):
+                self.penis_shrink_var.set(self.config.nudenet_shrink_values.get("penis", 0))
+            if hasattr(self, 'anus_shrink_var'):
+                self.anus_shrink_var.set(self.config.nudenet_shrink_values.get("anus", 0))
+            if hasattr(self, 'nipples_shrink_var'):
+                self.nipples_shrink_var.set(self.config.nudenet_shrink_values.get("nipples", 0))
             
             # UI状態を更新
             self._on_mosaic_type_change()

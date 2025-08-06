@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import time
 from typing import List, Tuple, Dict, Optional
-from auto_mosaic.src.utils import logger
+from auto_mosaic.src.utils import logger, expand_bbox
 
 # Type alias for bounding box with class
 BBoxWithClass = Tuple[int, int, int, int, str]
@@ -112,7 +112,9 @@ class NudeNetDetector:
             detections = self.detector.detect(rgb_image)
 
             # 結果を変換（ユーザー設定も考慮）
-            results = self._convert_nudenet_results(detections, confidence, config)
+            # 画像サイズを取得
+            image_shape = image.shape[:2]  # (height, width)
+            results = self._convert_nudenet_results(detections, confidence, config, image_shape)
 
             inference_time = time.time() - start_time
             logger.info(f"NudeNet detection completed in {inference_time:.3f}s")
@@ -123,7 +125,7 @@ class NudeNetDetector:
             logger.error(f"NudeNet detection failed: {e}")
             return {}
     
-    def _convert_nudenet_results(self, detections: List[Dict], confidence_threshold: float, config=None) -> Dict[str, List[BBoxWithClass]]:
+    def _convert_nudenet_results(self, detections: List[Dict], confidence_threshold: float, config=None, image_shape=None) -> Dict[str, List[BBoxWithClass]]:
         """
         Convert NudeNet detection results to our format
         
@@ -131,6 +133,7 @@ class NudeNetDetector:
             detections: NudeNet detection results
             confidence_threshold: Minimum confidence for detection
             config: Configuration object with user settings
+            image_shape: (height, width) of the image for bbox adjustment
             
         Returns:
             Dictionary with part names as keys and bounding boxes as values
@@ -168,6 +171,15 @@ class NudeNetDetector:
             if len(box) == 4:
                 x, y, w, h = box
                 x1, y1, x2, y2 = x, y, x + w, y + h
+                
+                # NudeNet専用範囲調整を適用
+                if config and hasattr(config, 'use_nudenet_shrink') and config.use_nudenet_shrink and image_shape:
+                    shrink_value = config.nudenet_shrink_values.get(mapped_class, 0)
+                    if shrink_value != 0:
+                        original_bbox = (x1, y1, x2, y2)
+                        adjusted_bbox = expand_bbox(original_bbox, shrink_value, image_shape)
+                        x1, y1, x2, y2 = adjusted_bbox
+                        logger.info(f"[DEBUG] NudeNet range adjustment for {mapped_class}: {shrink_value:+d}px, bbox {original_bbox} -> {adjusted_bbox}")
                 
                 # 結果に追加
                 if mapped_class not in results:

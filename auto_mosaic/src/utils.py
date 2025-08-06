@@ -114,6 +114,15 @@ class ProcessingConfig:
         self.use_anime_detector = True          # イラスト専用モデルを使用
         self.use_nudenet = True                 # 実写専用モデルを使用
         
+        # NudeNet専用範囲調整設定
+        self.use_nudenet_shrink = False         # NudeNet検出範囲の縮小機能を使用
+        self.nudenet_shrink_values = {
+            "labia_majora": -10,                # 大陰唇の縮小値（px）- 陰毛除外用
+            "penis": 0,                         # 男性器の調整値（px）
+            "anus": 0,                          # 肛門の調整値（px）
+            "nipples": 0                        # 乳首の調整値（px）
+        }
+        
         # カスタムモデル設定
         self.use_custom_models = False          # カスタムモデルを使用するかどうか
         self.custom_models = {}                 # カスタムモデル設定 {"name": {"path": "", "enabled": True, "class_mapping": {}}}

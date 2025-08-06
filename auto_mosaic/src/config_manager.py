@@ -115,6 +115,10 @@ class ConfigManager:
             # カスタムモデル設定
             "use_custom_models": config.use_custom_models,
             "custom_models": config.custom_models,
+            
+            # NudeNet専用範囲調整設定
+            "use_nudenet_shrink": config.use_nudenet_shrink,
+            "nudenet_shrink_values": config.nudenet_shrink_values,
         }
     
     def dict_to_processing_config(self, config_dict: Dict[str, Any]) -> ProcessingConfig:
@@ -156,6 +160,10 @@ class ConfigManager:
         
         config.use_custom_models = config_dict.get("use_custom_models", config.use_custom_models)
         config.custom_models = config_dict.get("custom_models", config.custom_models)
+        
+        # NudeNet専用範囲調整設定
+        config.use_nudenet_shrink = config_dict.get("use_nudenet_shrink", config.use_nudenet_shrink)
+        config.nudenet_shrink_values = config_dict.get("nudenet_shrink_values", config.nudenet_shrink_values)
         
         return config
     
