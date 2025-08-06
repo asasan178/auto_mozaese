@@ -2408,10 +2408,10 @@ class AutoMosaicGUI:
         # 大陰唇縮小設定（最も重要）
         ttk.Label(nudenet_shrink_frame, text="大陰唇:").grid(row=2, column=0, sticky=tk.W, padx=(20, 5))
         self.labia_majora_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("labia_majora", -10))
-        labia_spin = ttk.Spinbox(nudenet_shrink_frame, from_=-30, to=10, increment=1,
+        labia_spin = ttk.Spinbox(nudenet_shrink_frame, from_=-100, to=20, increment=1,
                                textvariable=self.labia_majora_shrink_var, width=8)
         labia_spin.grid(row=2, column=1, sticky=tk.W, padx=(0, 5))
-        ttk.Label(nudenet_shrink_frame, text="px (陰毛除外用、推奨: -5〜-15)", foreground="gray", font=("", 8)).grid(row=2, column=2, sticky=tk.W)
+        ttk.Label(nudenet_shrink_frame, text="px (陰毛除外用、推奨: -5〜-30)", foreground="gray", font=("", 8)).grid(row=2, column=2, sticky=tk.W)
         
         # その他の部位設定（折りたたみ可能にする）
         self.nudenet_advanced_var = tk.BooleanVar(value=False)
@@ -2427,7 +2427,7 @@ class AutoMosaicGUI:
         # 男性器設定
         ttk.Label(self.nudenet_advanced_frame, text="男性器:").grid(row=0, column=0, sticky=tk.W, padx=(20, 5))
         self.penis_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("penis", 0))
-        penis_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+        penis_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-100, to=50, increment=1,
                                textvariable=self.penis_shrink_var, width=8)
         penis_spin.grid(row=0, column=1, sticky=tk.W, padx=(0, 5))
         ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=0, column=2, sticky=tk.W)
@@ -2435,7 +2435,7 @@ class AutoMosaicGUI:
         # 肛門設定
         ttk.Label(self.nudenet_advanced_frame, text="肛門:").grid(row=1, column=0, sticky=tk.W, padx=(20, 5))
         self.anus_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("anus", 0))
-        anus_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+        anus_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-100, to=50, increment=1,
                               textvariable=self.anus_shrink_var, width=8)
         anus_spin.grid(row=1, column=1, sticky=tk.W, padx=(0, 5))
         ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=1, column=2, sticky=tk.W)
@@ -2443,7 +2443,7 @@ class AutoMosaicGUI:
         # 乳首設定
         ttk.Label(self.nudenet_advanced_frame, text="乳首:").grid(row=2, column=0, sticky=tk.W, padx=(20, 5))
         self.nipples_shrink_var = tk.IntVar(value=self.config.nudenet_shrink_values.get("nipples", 0))
-        nipples_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-20, to=20, increment=1,
+        nipples_spin = ttk.Spinbox(self.nudenet_advanced_frame, from_=-100, to=50, increment=1,
                                  textvariable=self.nipples_shrink_var, width=8)
         nipples_spin.grid(row=2, column=1, sticky=tk.W, padx=(0, 5))
         ttk.Label(self.nudenet_advanced_frame, text="px", foreground="gray", font=("", 8)).grid(row=2, column=2, sticky=tk.W)
