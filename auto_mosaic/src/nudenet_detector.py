@@ -172,14 +172,14 @@ class NudeNetDetector:
                 x, y, w, h = box
                 x1, y1, x2, y2 = x, y, x + w, y + h
                 
-                # NudeNet専用範囲調整を適用
+                # 実写検出専用範囲調整を適用
                 if config and hasattr(config, 'use_nudenet_shrink') and config.use_nudenet_shrink and image_shape:
                     shrink_value = config.nudenet_shrink_values.get(mapped_class, 0)
                     if shrink_value != 0:
                         original_bbox = (x1, y1, x2, y2)
                         adjusted_bbox = expand_bbox(original_bbox, shrink_value, image_shape)
                         x1, y1, x2, y2 = adjusted_bbox
-                        logger.info(f"[DEBUG] NudeNet range adjustment for {mapped_class}: {shrink_value:+d}px, bbox {original_bbox} -> {adjusted_bbox}")
+                        logger.info(f"[DEBUG] Real photo detection range adjustment for {mapped_class}: {shrink_value:+d}px, bbox {original_bbox} -> {adjusted_bbox}")
                 
                 # 結果に追加
                 if mapped_class not in results:

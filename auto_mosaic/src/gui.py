@@ -1853,19 +1853,19 @@ class AutoMosaicGUI:
         logger.info(f"Detector settings updated: anime={self.config.use_anime_detector}, nudenet={self.config.use_nudenet}")
     
     def _on_nudenet_shrink_toggle(self):
-        """Handle NudeNet shrink setting toggle"""
+        """Handle real photo detection shrink setting toggle"""
         self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
-        logger.info(f"NudeNet shrink setting changed to: {self.config.use_nudenet_shrink}")
+        logger.info(f"Real photo detection shrink setting changed to: {self.config.use_nudenet_shrink}")
     
     def _on_nudenet_advanced_toggle(self):
-        """Handle NudeNet advanced settings toggle"""
+        """Handle real photo detection advanced settings toggle"""
         if self.nudenet_advanced_var.get():
             self.nudenet_advanced_frame.grid()
         else:
             self.nudenet_advanced_frame.grid_remove()
     
     def _update_nudenet_shrink_config(self):
-        """Update NudeNet shrink configuration from GUI values"""
+        """Update real photo detection shrink configuration from GUI values"""
         if hasattr(self, 'labia_majora_shrink_var'):
             self.config.nudenet_shrink_values["labia_majora"] = self.labia_majora_shrink_var.get()
         if hasattr(self, 'penis_shrink_var'):
@@ -2390,12 +2390,12 @@ class AutoMosaicGUI:
                                        command=self._install_nudenet, style="Small.TButton")
                 install_btn.grid(row=0, column=1, sticky=tk.W, padx=(10, 0))
         
-        # NudeNet専用範囲調整設定
-        nudenet_shrink_frame = ttk.LabelFrame(details_frame, text="NudeNet範囲調整設定（陰毛除外用）", padding="5")
+        # 実写検出範囲調整設定
+        nudenet_shrink_frame = ttk.LabelFrame(details_frame, text="実写検出範囲調整設定（陰毛除外用）", padding="5")
         nudenet_shrink_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(5, 0))
         
         self.use_nudenet_shrink_var = tk.BooleanVar(value=self.config.use_nudenet_shrink)
-        nudenet_shrink_check = ttk.Checkbutton(nudenet_shrink_frame, text="NudeNet検出範囲の調整を使用", 
+        nudenet_shrink_check = ttk.Checkbutton(nudenet_shrink_frame, text="実写検出範囲の調整を使用", 
                                              variable=self.use_nudenet_shrink_var,
                                              command=self._on_nudenet_shrink_toggle)
         nudenet_shrink_check.grid(row=0, column=0, columnspan=3, sticky=tk.W)
@@ -2698,7 +2698,7 @@ class AutoMosaicGUI:
         for part_key, var in self.individual_expansion_vars.items():
             self.config.individual_expansions[part_key] = var.get()
         
-        # NudeNet専用範囲調整設定の更新
+        # 実写検出範囲調整設定の更新
         if hasattr(self, 'use_nudenet_shrink_var'):
             self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
             self._update_nudenet_shrink_config()
@@ -4451,7 +4451,7 @@ class AutoMosaicGUI:
             # 検出器モード
             self.config.detector_mode = self.detector_mode_var.get()
             
-            # NudeNet専用範囲調整設定
+            # 実写検出範囲調整設定
             self.config.use_nudenet_shrink = self.use_nudenet_shrink_var.get()
             self._update_nudenet_shrink_config()
             
@@ -4495,7 +4495,7 @@ class AutoMosaicGUI:
             # 検出器モード
             self.detector_mode_var.set(self.config.detector_mode)
             
-            # NudeNet専用範囲調整設定
+            # 実写検出範囲調整設定
             if hasattr(self, 'use_nudenet_shrink_var'):
                 self.use_nudenet_shrink_var.set(self.config.use_nudenet_shrink)
             if hasattr(self, 'labia_majora_shrink_var'):
