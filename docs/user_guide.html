@@ -572,6 +572,151 @@
 
         <div class="section-divider"></div>
 
+        <!-- 設定プロファイル機能 -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-save feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">設定プロファイル機能</h2>
+                </div>
+
+                <p class="text-lg leading-relaxed mb-6">
+                    設定プロファイル機能を使用することで、用途別に複数の設定パターンを保存・管理することができます。
+                    例えば「イラスト専用」「実写専用」「高品質処理」など、様々なシーンに応じた設定を簡単に切り替えることができます。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-save text-blue-500 mr-2"></i>
+                            設定の保存
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">プロファイルの作成</h4>
+                                <p class="text-sm text-blue-700 mb-2">
+                                    <code class="bg-blue-200 px-2 py-1 rounded">設定 → 設定プロファイル → 現在の設定を保存...</code>
+                                </p>
+                                <ol class="list-decimal list-inside text-sm text-blue-700 space-y-1">
+                                    <li>プロファイル名を入力（例：「イラスト専用」）</li>
+                                    <li>説明を追加（省略可）</li>
+                                    <li>💾 保存ボタンをクリック</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-folder-open text-green-500 mr-2"></i>
+                            設定の読み込み
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800 mb-2">プロファイルの適用</h4>
+                                <p class="text-sm text-green-700 mb-2">
+                                    <code class="bg-green-200 px-2 py-1 rounded">設定 → 設定プロファイル → 設定を読み込み...</code>
+                                </p>
+                                <ol class="list-decimal list-inside text-sm text-green-700 space-y-1">
+                                    <li>プロファイル一覧から選択</li>
+                                    <li>📂 読み込みボタンをクリック</li>
+                                    <li>GUI設定が自動的に変更される</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-purple-800 mb-2 flex items-center">
+                            <i class="fas fa-cogs text-purple-600 mr-2"></i>
+                            プロファイル管理
+                        </h4>
+                        <p class="text-sm text-purple-700 mb-2">
+                            <code class="bg-purple-200 px-2 py-1 rounded">設定 → プロファイル管理...</code>
+                        </p>
+                        <ul class="list-disc list-inside text-sm text-purple-700 space-y-1">
+                            <li>📝 名前変更</li>
+                            <li>📄 複製</li>
+                            <li>🗑️ 削除</li>
+                            <li>📤 エクスポート</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-orange-800 mb-2 flex items-center">
+                            <i class="fas fa-file-export text-orange-600 mr-2"></i>
+                            エクスポート
+                        </h4>
+                        <p class="text-sm text-orange-700 mb-2">
+                            <code class="bg-orange-200 px-2 py-1 rounded">設定をエクスポート...</code>
+                        </p>
+                        <ul class="list-disc list-inside text-sm text-orange-700 space-y-1">
+                            <li>JSONファイルとして外部保存</li>
+                            <li>設定の共有やバックアップ</li>
+                            <li>他の環境への移行</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-teal-50 to-teal-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-teal-800 mb-2 flex items-center">
+                            <i class="fas fa-file-import text-teal-600 mr-2"></i>
+                            インポート
+                        </h4>
+                        <p class="text-sm text-teal-700 mb-2">
+                            <code class="bg-teal-200 px-2 py-1 rounded">設定をインポート...</code>
+                        </p>
+                        <ul class="list-disc list-inside text-sm text-teal-700 space-y-1">
+                            <li>JSONファイルから読み込み</li>
+                            <li>重複名は自動変更</li>
+                            <li>他の環境からの移行</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <h4 class="font-bold mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        プロファイル活用例
+                    </h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-bold text-gray-700 mb-2">用途別プロファイル</h5>
+                            <ul class="list-disc list-inside space-y-2 text-sm">
+                                <li><strong>「イラスト専用」:</strong> 検出器モード→アニメのみ、信頼度0.25</li>
+                                <li><strong>「実写専用」:</strong> 検出器モード→NudeNetのみ、信頼度0.35</li>
+                                <li><strong>「高品質処理」:</strong> SAM輪郭検出ON、ガウスモザイク使用</li>
+                                <li><strong>「高速処理」:</strong> 矩形マスクのみ、ブロックモザイク使用</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-gray-700 mb-2">効率的なワークフロー</h5>
+                            <ol class="list-decimal list-inside space-y-2 text-sm">
+                                <li>各用途に最適化された設定を作成</li>
+                                <li>それぞれを名前付きプロファイルとして保存</li>
+                                <li>処理する画像の種類に応じてプロファイルを切り替え</li>
+                                <li>効率的で一貫した処理が可能</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg mt-6">
+                    <h4 class="font-bold text-gray-700 mb-2 flex items-center">
+                        <i class="fas fa-folder text-gray-600 mr-2"></i>
+                        保存場所
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                        設定プロファイルは以下の場所に保存されます：
+                        <code class="bg-gray-200 px-2 py-1 rounded ml-2">%AppData%\自動モザエセ\config\profiles\</code>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
         <!-- トラブルシューティング -->
         <section class="mb-12">
             <div class="bg-white rounded-lg card-shadow p-8">

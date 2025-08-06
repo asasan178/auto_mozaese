@@ -889,6 +889,12 @@ class AutoMosaicGUI:
         # Configuration
         self.config = ProcessingConfig()
         
+        # 設定管理システム初期化
+        from auto_mosaic.src.config_manager import ConfigManager
+        self.config_manager = ConfigManager()
+        
+
+        
         # デバイス設定を自動化 - 常にautoモードで動作
         self.config.device_mode = "auto"
         self.device_info = get_device_info()  # デバイス情報は取得するがUI表示はしない
@@ -1007,6 +1013,21 @@ class AutoMosaicGUI:
         # 設定メニュー
         settings_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="設定", menu=settings_menu)
+        
+        # 設定保存・読み込みサブメニュー
+        config_menu = tk.Menu(settings_menu, tearoff=0)
+        settings_menu.add_cascade(label="⚙️ 設定プロファイル", menu=config_menu)
+        config_menu.add_command(label="💾 現在の設定を保存...", command=self._save_config_profile)
+        config_menu.add_command(label="📂 設定を読み込み...", command=self._load_config_profile)
+        config_menu.add_separator()
+        config_menu.add_command(label="🔄 デフォルト設定にリセット", command=self._reset_to_default)
+        config_menu.add_command(label="💾 現在の設定をデフォルトに設定", command=self._save_as_default)
+        config_menu.add_separator()
+        config_menu.add_command(label="📤 設定をエクスポート...", command=self._export_config)
+        config_menu.add_command(label="📥 設定をインポート...", command=self._import_config)
+        config_menu.add_separator()
+        config_menu.add_command(label="🗂️ プロファイル管理...", command=self._manage_profiles)
+        settings_menu.add_separator()
         
         # 認証設定サブメニュー（開発者モードでのみ表示）
         try:
@@ -1941,6 +1962,19 @@ class AutoMosaicGUI:
         
         # チェックボックスのリストを作成（動的表示制御用）
         self.model_checkboxes = {}
+        
+        # モデル変数の辞書を作成（設定保存・読み込み用）
+        self.model_vars = {
+            "penis": self.model_penis_var,
+            "labia_minora": self.model_labia_minora_var,
+            "labia_majora": self.model_labia_majora_var,
+            "testicles": self.model_testicles_var,
+            "anus": self.model_anus_var,
+            "nipples": self.model_nipples_var,
+            "x-ray": self.model_xray_var,
+            "cross-section": self.model_cross_section_var,
+            "all": self.model_all_var
+        }
         
         # 全チェックボックスを作成（まだ配置しない）
         self._create_all_model_checkboxes()
@@ -4132,6 +4166,251 @@ class AutoMosaicGUI:
         
         # 閉じるボタン
         ttk.Button(main_frame, text="閉じる", command=dialog.destroy).grid(row=3, column=0, pady=(0, 0))
+
+    # ========== 設定プロファイル管理機能 ==========
+    
+    def _save_config_profile(self):
+        """現在の設定をプロファイルとして保存"""
+        try:
+            # 現在のGUI設定を反映
+            self._update_config_from_gui()
+            
+            # 保存ダイアログを表示
+            from auto_mosaic.src.config_dialogs import ConfigSaveDialog
+            dialog = ConfigSaveDialog(self.root, self.config_manager)
+            result = dialog.show()
+            
+            if result:
+                name, description = result
+                if self.config_manager.save_profile(name, self.config, description):
+                    messagebox.showinfo("保存完了", f"設定プロファイル '{name}' を保存しました。")
+                else:
+                    messagebox.showerror("エラー", "設定の保存に失敗しました。")
+                    
+        except Exception as e:
+            logger.error(f"Failed to save config profile: {e}")
+            messagebox.showerror("エラー", f"設定保存中にエラーが発生しました: {e}")
+    
+    def _load_config_profile(self):
+        """設定プロファイルを読み込み"""
+        try:
+            # 読み込みダイアログを表示
+            from auto_mosaic.src.config_dialogs import ConfigLoadDialog
+            dialog = ConfigLoadDialog(self.root, self.config_manager)
+            selected_profile = dialog.show()
+            
+            if selected_profile:
+                loaded_config = self.config_manager.load_profile(selected_profile)
+                if loaded_config:
+                    self.config = loaded_config
+                    self._update_gui_from_config()
+                    messagebox.showinfo("読み込み完了", f"設定プロファイル '{selected_profile}' を読み込みました。")
+                else:
+                    messagebox.showerror("エラー", "設定の読み込みに失敗しました。")
+                    
+        except Exception as e:
+            logger.error(f"Failed to load config profile: {e}")
+            messagebox.showerror("エラー", f"設定読み込み中にエラーが発生しました: {e}")
+    
+    def _reset_to_default(self):
+        """設定をデフォルトに戻す"""
+        try:
+            result = messagebox.askyesno(
+                "設定リセット確認",
+                "現在の設定を破棄してデフォルト設定に戻しますか？\n\n"
+                "この操作は元に戻せません。"
+            )
+            
+            if result:
+                # デフォルト設定を読み込み（存在しない場合は新規作成）
+                default_config = self.config_manager.load_default()
+                if default_config is None:
+                    # デフォルト設定がない場合は新しいProcessingConfigを作成
+                    default_config = ProcessingConfig()
+                
+                self.config = default_config
+                self._update_gui_from_config()
+                messagebox.showinfo("リセット完了", "設定をデフォルトに戻しました。")
+                
+        except Exception as e:
+            logger.error(f"Failed to reset config: {e}")
+            messagebox.showerror("エラー", f"設定リセット中にエラーが発生しました: {e}")
+    
+    def _save_as_default(self):
+        """現在の設定をデフォルトとして保存"""
+        try:
+            result = messagebox.askyesno(
+                "デフォルト設定保存確認",
+                "現在の設定をデフォルト設定として保存しますか？\n\n"
+                "次回起動時からこの設定が標準設定になります。"
+            )
+            
+            if result:
+                # 現在のGUI設定を反映
+                self._update_config_from_gui()
+                
+                if self.config_manager.save_as_default(self.config):
+                    messagebox.showinfo("保存完了", "現在の設定をデフォルトとして保存しました。")
+                else:
+                    messagebox.showerror("エラー", "デフォルト設定の保存に失敗しました。")
+                    
+        except Exception as e:
+            logger.error(f"Failed to save default config: {e}")
+            messagebox.showerror("エラー", f"デフォルト設定保存中にエラーが発生しました: {e}")
+    
+    def _export_config(self):
+        """設定をファイルにエクスポート"""
+        try:
+            from tkinter import filedialog
+            
+            # エクスポート対象プロファイルの選択
+            from auto_mosaic.src.config_dialogs import ConfigLoadDialog
+            dialog = ConfigLoadDialog(self.root, self.config_manager, title="エクスポートする設定を選択")
+            selected_profile = dialog.show()
+            
+            if selected_profile:
+                # 保存先の選択
+                file_path = filedialog.asksaveasfilename(
+                    title="設定をエクスポート",
+                    defaultextension=".json",
+                    filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+                    initialfile=f"{selected_profile}_config.json"
+                )
+                
+                if file_path:
+                    if self.config_manager.export_profile(selected_profile, file_path):
+                        messagebox.showinfo("エクスポート完了", f"設定を {file_path} にエクスポートしました。")
+                    else:
+                        messagebox.showerror("エラー", "設定のエクスポートに失敗しました。")
+                        
+        except Exception as e:
+            logger.error(f"Failed to export config: {e}")
+            messagebox.showerror("エラー", f"設定エクスポート中にエラーが発生しました: {e}")
+    
+    def _import_config(self):
+        """設定をファイルからインポート"""
+        try:
+            from tkinter import filedialog
+            
+            file_path = filedialog.askopenfilename(
+                title="設定をインポート",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+            )
+            
+            if file_path:
+                imported_name = self.config_manager.import_profile(file_path)
+                if imported_name:
+                    messagebox.showinfo("インポート完了", f"設定プロファイル '{imported_name}' をインポートしました。")
+                else:
+                    messagebox.showerror("エラー", "設定のインポートに失敗しました。")
+                    
+        except Exception as e:
+            logger.error(f"Failed to import config: {e}")
+            messagebox.showerror("エラー", f"設定インポート中にエラーが発生しました: {e}")
+    
+    def _manage_profiles(self):
+        """プロファイル管理ダイアログを表示"""
+        try:
+            from auto_mosaic.src.config_dialogs import ProfileManagerDialog
+            dialog = ProfileManagerDialog(self.root, self.config_manager)
+            result = dialog.show()
+            
+            if result:
+                # プロファイルが選択された場合は読み込み
+                selected_profile = result
+                loaded_config = self.config_manager.load_profile(selected_profile)
+                if loaded_config:
+                    self.config = loaded_config
+                    self._update_gui_from_config()
+                    messagebox.showinfo("読み込み完了", f"設定プロファイル '{selected_profile}' を読み込みました。")
+                    
+        except Exception as e:
+            logger.error(f"Failed to manage profiles: {e}")
+            messagebox.showerror("エラー", f"プロファイル管理中にエラーが発生しました: {e}")
+    
+    def _update_config_from_gui(self):
+        """GUI設定値をconfigオブジェクトに反映"""
+        try:
+            # 基本設定
+            self.config.confidence = self.confidence_var.get()
+            self.config.feather = int(self.feather_var.get() * 10)
+            self.config.bbox_expansion = self.expansion_var.get()
+            self.config.visualize = self.visual_var.get()
+            
+            # 個別拡張範囲設定
+            self.config.use_individual_expansion = self.use_individual_expansion_var.get()
+            for part_key, var in self.individual_expansion_vars.items():
+                self.config.individual_expansions[part_key] = var.get()
+            
+            # ファイル名設定
+            self.config.filename_mode = self.filename_mode_var.get()
+            self.config.filename_prefix = self.prefix_var.get()
+            self.config.sequential_prefix = self.seq_prefix_var.get()
+            self.config.sequential_start_number = self.seq_start_var.get()
+            
+            # モザイク設定
+            for key, var in self.mosaic_type_vars.items():
+                self.config.mosaic_types[key] = var.get()
+            self.config.use_fanza_standard = self.use_fanza_var.get()
+            self.config.manual_tile_size = self.manual_tile_var.get()
+            self.config.gaussian_blur_radius = self.gaussian_blur_radius_var.get()
+            
+            # モデル選択設定
+            for key, var in self.model_vars.items():
+                if key in self.config.selected_models:
+                    self.config.selected_models[key] = var.get()
+            
+            # 検出器モード
+            self.config.detector_mode = self.detector_mode_var.get()
+            
+        except Exception as e:
+            logger.error(f"Failed to update config from GUI: {e}")
+    
+    def _update_gui_from_config(self):
+        """configオブジェクトの値をGUIに反映"""
+        try:
+            # 基本設定
+            self.confidence_var.set(self.config.confidence)
+            self.feather_var.set(self.config.feather / 10.0)
+            self.expansion_var.set(self.config.bbox_expansion)
+            self.visual_var.set(self.config.visualize)
+            
+            # 個別拡張範囲設定
+            self.use_individual_expansion_var.set(self.config.use_individual_expansion)
+            for part_key, var in self.individual_expansion_vars.items():
+                if part_key in self.config.individual_expansions:
+                    var.set(self.config.individual_expansions[part_key])
+            
+            # ファイル名設定
+            self.filename_mode_var.set(self.config.filename_mode)
+            self.prefix_var.set(self.config.filename_prefix)
+            self.seq_prefix_var.set(self.config.sequential_prefix)
+            self.seq_start_var.set(self.config.sequential_start_number)
+            
+            # モザイク設定
+            for key, var in self.mosaic_type_vars.items():
+                if key in self.config.mosaic_types:
+                    var.set(self.config.mosaic_types[key])
+            self.use_fanza_var.set(self.config.use_fanza_standard)
+            self.manual_tile_var.set(self.config.manual_tile_size)
+            self.gaussian_blur_radius_var.set(self.config.gaussian_blur_radius)
+            
+            # モデル選択設定
+            for key, var in self.model_vars.items():
+                if key in self.config.selected_models:
+                    var.set(self.config.selected_models[key])
+            
+            # 検出器モード
+            self.detector_mode_var.set(self.config.detector_mode)
+            
+            # UI状態を更新
+            self._on_mosaic_type_change()
+            self._on_fanza_toggle()
+            self._on_detector_mode_change()
+            self._on_individual_expansion_toggle()
+            
+        except Exception as e:
+            logger.error(f"Failed to update GUI from config: {e}")
 
 def main():
     """Main entry point"""
