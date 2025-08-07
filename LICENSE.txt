@@ -18,6 +18,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ==========================================================================
 
+ソースコード入手先: https://github.com/asasan178/auto_mozaese/
+
+==========================================================================
+
                        自動モザエセ - 利用許諾契約書
 
 このソフトウェアは、アニメ・イラスト画像の男女局部を自動検出し、適切な
@@ -123,4 +127,6 @@ https://www.gnu.org/licenses/agpl-3.0.html
 
 自動モザエセ v1.0
 Copyright © 2025 Auto Mosaic Development Team
+
+公式リポジトリ・ソースコード: https://github.com/asasan178/auto_mozaese/
 All rights reserved. 
