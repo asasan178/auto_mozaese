@@ -461,6 +461,15 @@
                             </ul>
                         </div>
                         <div>
+                            <h4 class="font-bold mb-3 text-lg">実写検出範囲調整</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-cut text-orange-500 mr-2"></i>陰毛除外機能</li>
+                                <li><i class="fas fa-sliders-h text-orange-500 mr-2"></i>大陰唇: -5〜-30px 推奨</li>
+                                <li><i class="fas fa-photo-video text-orange-500 mr-2"></i>実写・写真画像専用</li>
+                                <li><i class="fas fa-adjust text-orange-500 mr-2"></i>高解像度対応: -100px</li>
+                            </ul>
+                        </div>
+                        <div>
                             <h4 class="font-bold mb-3 text-lg">効果オプション</h4>
                             <ul class="space-y-2 text-sm">
                                 <li><i class="fas fa-check-square text-purple-500 mr-2"></i>ブロックモザイク</li>
@@ -486,6 +495,144 @@
                                 出力フォルダを選択ボタンで設定
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 実写検出範囲調整機能 -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-cut feature-icon text-3xl mr-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800">実写検出範囲調整機能（陰毛除外）</h2>
+                </div>
+
+                <p class="text-lg leading-relaxed mb-6">
+                    実写・写真画像で陰毛が過度にモザイクされる問題を解決する専用機能です。
+                    NudeNet技術を使用した実写検出で、より精密な範囲調整が可能になります。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-cog text-blue-500 mr-2"></i>
+                            基本設定
+                        </h3>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-800 mb-2">機能の有効化</h4>
+                            <p class="text-sm text-blue-700 mb-2">
+                                ☑️ <strong>「実写検出範囲の調整を使用」</strong> をチェック
+                            </p>
+                            
+                            <h4 class="font-bold text-blue-800 mb-2 mt-4">大陰唇の範囲調整</h4>
+                            <ul class="list-disc list-inside text-sm text-blue-700 space-y-1">
+                                <li><strong>調整範囲:</strong> -100px 〜 +20px</li>
+                                <li><strong>推奨値:</strong> -5px 〜 -30px</li>
+                                <li><strong>マイナス値:</strong> 検出範囲を縮小（陰毛除外）</li>
+                                <li><strong>プラス値:</strong> 検出範囲を拡大</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                            <i class="fas fa-sliders-h text-green-500 mr-2"></i>
+                            詳細設定（上級者向け）
+                        </h3>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">その他の部位調整</h4>
+                            <p class="text-sm text-green-700 mb-2">
+                                ☑️ <strong>「その他の部位も調整」</strong> をチェック
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-sm text-green-700 space-y-1">
+                                <li><strong>男性器:</strong> -100px 〜 +50px</li>
+                                <li><strong>肛門:</strong> -100px 〜 +50px</li>
+                                <li><strong>乳首:</strong> -100px 〜 +50px</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-table text-purple-500 mr-2"></i>
+                        使用例・推奨設定
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-bold">状況</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-bold">推奨設定</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-bold">効果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2"><strong>軽度の陰毛</strong></td>
+                                    <td class="border border-gray-300 px-4 py-2 text-blue-600">-5px 〜 -10px</td>
+                                    <td class="border border-gray-300 px-4 py-2">陰毛の端部分を除外</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2"><strong>中程度の陰毛</strong></td>
+                                    <td class="border border-gray-300 px-4 py-2 text-blue-600">-15px 〜 -25px</td>
+                                    <td class="border border-gray-300 px-4 py-2">陰毛領域をしっかり除外</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2"><strong>広範囲の陰毛</strong></td>
+                                    <td class="border border-gray-300 px-4 py-2 text-blue-600">-30px 〜 -50px</td>
+                                    <td class="border border-gray-300 px-4 py-2">大きな陰毛領域を除外</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2"><strong>高解像度画像</strong></td>
+                                    <td class="border border-gray-300 px-4 py-2 text-blue-600">-50px 〜 -100px</td>
+                                    <td class="border border-gray-300 px-4 py-2">高精度で陰毛を除外</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-yellow-800 mb-2 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                            使用のコツ
+                        </h4>
+                        <ul class="list-disc list-inside text-sm text-yellow-700 space-y-1">
+                            <li>まず大陰唇を-10pxから開始</li>
+                            <li>結果を見ながら段階的に調整</li>
+                            <li>画像に応じて最適値は異なる</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-800 mb-2 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+                            重要な注意点
+                        </h4>
+                        <ul class="list-disc list-inside text-sm text-red-700 space-y-1">
+                            <li>実写専用ロジック使用時のみ有効</li>
+                            <li>アニメ・イラスト専用モードでは効果なし</li>
+                            <li>過度な縮小は検出漏れの原因</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-800 mb-2 flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            対応画像
+                        </h4>
+                        <ul class="list-disc list-inside text-sm text-green-700 space-y-1">
+                            <li>写真・実写画像</li>
+                            <li>様々な画風の画像</li>
+                            <li>高解像度画像（4K等）</li>
+                        </ul>
                     </div>
                 </div>
             </div>
