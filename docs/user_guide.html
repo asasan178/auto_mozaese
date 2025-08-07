@@ -397,13 +397,13 @@
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
                                     <div>
-                                        <strong>時系マスク:</strong> 高速・効率的な処理方法
+                                        <strong>輪郭マスク:</strong> 高精度・正確な輪郭処理（推奨）
                                     </div>
                                 </li>
                                 <li class="flex items-start">
                                     <i class="fas fa-circle text-gray-400 mr-2 mt-1"></i>
                                     <div>
-                                        <strong>定時マスク:</strong> より高精度な処理（低速）
+                                        <strong>矩形マスク:</strong> 高速・効率的な矩形処理
                                     </div>
                                 </li>
                             </ul>
@@ -455,9 +455,9 @@
                         <div>
                             <h4 class="font-bold mb-3 text-lg">基本設定</h4>
                             <ul class="space-y-2 text-sm">
-                                <li><i class="fas fa-crosshairs text-green-500 mr-2"></i>検出自信度: 0.25 (AI検出の閾値)</li>
+                                <li><i class="fas fa-crosshairs text-green-500 mr-2"></i>検出信頼度: 0.25 (AI検出の閾値)</li>
                                 <li><i class="fas fa-expand text-green-500 mr-2"></i>ぼかし: 0.5 (モザイクのぼかし強度)</li>
-                                <li><i class="fas fa-ruler text-green-500 mr-2"></i>除外判基準: 15px (小さい領域の除外)</li>
+                                <li><i class="fas fa-ruler text-green-500 mr-2"></i>範囲拡張: 15px (検出範囲の調整)</li>
                             </ul>
                         </div>
                         <div>
@@ -931,7 +931,7 @@
                                         <li>GPUを使用可能な場合は、GPU処理を有効化</li>
                                         <li>他のアプリケーションを終了してメモリを確保</li>
                                         <li>画像サイズを調整（必要に応じてリサイズ）</li>
-                                        <li>検出自信度を調整して処理負荷を軽減</li>
+                                        <li>検出信頼度を調整して処理負荷を軽減</li>
                                     </ul>
                                 </div>
                             </div>
@@ -942,9 +942,9 @@
                                     <p><strong>原因:</strong> 画像の特性や設定パラメータの問題</p>
                                     <p><strong>解決方法:</strong></p>
                                     <ul class="list-disc list-inside ml-4 space-y-1">
-                                        <li>検出自信度を調整（0.15-0.35の範囲で実験）</li>
-                                        <li>除外判基準を調整して小さな領域を適切に処理</li>
-                                        <li>定時マスクモードを使用してより高精度な処理を実行</li>
+                                        <li>検出信頼度を調整（0.15-0.35の範囲で実験）</li>
+                                        <li>範囲拡張を調整して検出範囲を適切に処理</li>
+                                        <li>輪郭マスクモードを使用してより高精度な処理を実行</li>
                                         <li>画像の品質と解像度を確認</li>
                                     </ul>
                                 </div>
@@ -1014,7 +1014,7 @@
                     <div class="border-b border-gray-200 pb-6">
                         <h4 class="font-bold text-lg text-gray-800 mb-2">Q: 処理結果に満足できない場合は？</h4>
                         <p class="text-gray-600">
-                            A: 検出自信度や除外基準などのパラメータを調整することで、
+                            A: 検出信頼度や範囲拡張などのパラメータを調整することで、
                             処理精度を向上させることができます。
                         </p>
                     </div>
