@@ -106,14 +106,75 @@ class DiscordCallbackServer:
     """Discord認証のコールバック受信サーバー"""
     
     def __init__(self, port: int = 8000):
-        self.port = port
+        self.preferred_port = port
+        self.port = None  # 実際に使用されるポート
         self.auth_code = None
         self.server_thread = None
         self.stop_event = threading.Event()
         
+    def find_available_port(self, start_port: int = 8000, max_attempts: int = 10) -> int:
+        """利用可能なポートを見つける（Discord認証で一般的に使用されるポート範囲を優先）"""
+        import socket
+        import os
+        
+        # テスト用: 環境変数で強制的にポートを指定
+        force_port = os.getenv('DISCORD_AUTH_FORCE_PORT')
+        if force_port:
+            try:
+                force_port_int = int(force_port)
+                logger.info(f"🧪 テストモード: ポート{force_port_int}を強制使用")
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    # SO_REUSEADDRは使用しない（正確なポート可用性チェックのため）
+                    s.bind(('localhost', force_port_int))
+                    logger.info(f"✅ 強制指定ポート {force_port_int} を使用")
+                    return force_port_int
+            except (ValueError, OSError) as e:
+                logger.warning(f"❌ 強制指定ポート {force_port} の使用に失敗: {e}")
+                logger.info("通常のポート検索に戻ります")
+        
+        # Discord認証でよく使用されるポート（Discord Developer Portalで設定推奨）
+        preferred_ports = [8000, 8080, 3000, 3001, 5000, 5001, 8001, 8081]
+        
+        # まず推奨ポートを試す（順序通りに検索）
+        logger.debug(f"Testing preferred ports in order: {preferred_ports}")
+        for port in preferred_ports:
+            logger.debug(f"Testing port {port}...")
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    # SO_REUSEADDRは使用しない（正確なポート可用性チェックのため）
+                    s.bind(('localhost', port))
+                    logger.info(f"Found available port (preferred): {port}")
+                    return port
+            except OSError as e:
+                logger.debug(f"Preferred port {port} is already in use: {e}")
+                continue
+        
+        # 推奨ポートが利用できない場合は順次試す
+        for port in range(start_port, start_port + max_attempts):
+            if port not in preferred_ports:  # 推奨ポートは既にチェック済み
+                try:
+                    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                        # SO_REUSEADDRは使用しない（正確なポート可用性チェックのため）
+                        s.bind(('localhost', port))
+                        logger.info(f"Found available port: {port}")
+                        return port
+                except OSError:
+                    logger.debug(f"Port {port} is already in use")
+                    continue
+        
+        logger.warning(f"No available port found in range {start_port}-{start_port + max_attempts - 1}")
+        raise OSError(f"No available port found in range {start_port}-{start_port + max_attempts - 1}")
+        
+    def get_actual_port(self) -> int:
+        """実際に使用されているポートを取得"""
+        return self.port
+        
     def start(self) -> None:
         """サーバーを開始"""
         try:
+            # 利用可能なポートを見つける
+            self.port = self.find_available_port(self.preferred_port)
+            
             import http.server
             import socketserver
             from urllib.parse import urlparse, parse_qs
@@ -312,12 +373,16 @@ class DiscordAuthAdapter:
         # 初期化
         self.callback_server = None
         
-        # 認証URLを生成
-        scope_string = '%20'.join(self.config.get("scopes", ["identify", "guilds", "guilds.members.read"]))
-        self.auth_url = (
+        # 認証URLは動的に生成するため、ここでは設定値のみ保存
+        self.auth_scopes = self.config.get("scopes", ["identify", "guilds", "guilds.members.read"])
+    
+    def _build_auth_url(self, redirect_uri: str) -> str:
+        """動的リダイレクトURIを使用して認証URLを構築"""
+        scope_string = '%20'.join(self.auth_scopes)
+        return (
             f"https://discord.com/api/oauth2/authorize?"
             f"client_id={self.client_id}&"
-            f"redirect_uri={self.redirect_uri}&"
+            f"redirect_uri={redirect_uri}&"
             f"response_type=code&"
             f"scope={scope_string}"
         )
@@ -501,11 +566,31 @@ class DiscordAuthAdapter:
             server_thread = threading.Thread(target=self.callback_server.start, daemon=True)
             server_thread.start()
             
-            # 少し待ってからブラウザを開く
+            # サーバーが開始されるまで少し待機
             time.sleep(0.5)
             
-            logger.info(f"Opening Discord auth URL: {self.auth_url}")
-            webbrowser.open(self.auth_url)
+            # 実際に使用されているポートを取得
+            actual_port = self.callback_server.get_actual_port()
+            if actual_port is None:
+                logger.error("Failed to start callback server")
+                logger.error("すべてのポート（8000-8009）が使用中です。他のアプリケーションを終了してから再試行してください。")
+                logger.error("詳細は docs/DISCORD_SETUP_GUIDE.md を参照してください。")
+                return False
+                
+            # 動的に認証URLを構築（実際のポートを使用）
+            dynamic_redirect_uri = f"http://localhost:{actual_port}/callback"
+            auth_url = self._build_auth_url(dynamic_redirect_uri)
+            
+            logger.info(f"🔗 Using dynamic redirect URI: {dynamic_redirect_uri}")
+            logger.info(f"📊 Port selection details: preferred={self.callback_server.preferred_port}, actual={actual_port}")
+            logger.info(f"🌐 Opening Discord auth URL: {auth_url}")
+            
+            # テスト用の詳細情報を出力
+            if actual_port != 8000:
+                logger.warning(f"⚠️  ポート{actual_port}を使用中（ポート8000は使用不可）")
+                logger.info(f"💡 Discord Developer Portalで http://localhost:{actual_port}/callback が登録されているか確認してください")
+            
+            webbrowser.open(auth_url)
             
             # 認証コードを待機
             logger.info("Waiting for Discord auth code...")
@@ -564,13 +649,22 @@ class DiscordAuthAdapter:
     def _get_token(self, code: str) -> bool:
         """認証コードからトークンを取得"""
         try:
+            # 動的なリダイレクトURIを使用（実際に使用されたポートを取得）
+            if self.callback_server and self.callback_server.get_actual_port():
+                dynamic_redirect_uri = f"http://localhost:{self.callback_server.get_actual_port()}/callback"
+            else:
+                # フォールバック（通常はここには来ないはず）
+                dynamic_redirect_uri = self.redirect_uri
+                
             data = {
                 'client_id': self.client_id,
                 'client_secret': self.client_secret,
                 'grant_type': 'authorization_code',
                 'code': code,
-                'redirect_uri': self.redirect_uri
+                'redirect_uri': dynamic_redirect_uri
             }
+            
+            logger.debug(f"Token request using redirect_uri: {dynamic_redirect_uri}")
             
             response = self.session.post(
                 'https://discord.com/api/oauth2/token',

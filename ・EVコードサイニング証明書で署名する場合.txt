@@ -1,0 +1,253 @@
+・EVコードサイニング証明書で署名する場合
+signtool.exe sign /v /a /n "コモンネーム" /tr タイムスタンプサーバーのURL /td タイムスタンプに使用するアルゴリズムの指定 /fd 署名アルゴリズムの指定 署名を付加するexeファイル名
+"c:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /v /a /n "AI Monetization Club Co.,Ltd." /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td sha256 /fd sha256 D:\Projects\reveng\auto_mosaic\builds\dist\自動モザエセ_開発版\自動モザエセ.exe
+
+"c:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /v /a /n "AI Monetization Club Co.,Ltd." /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td sha256 /fd sha256 "D:\Projects\reveng\auto_mosaic\installer\installer\自動モザエセ_setup_v1.0.0.exe"
+
+"c:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /v /a /n "AI Monetization Club Co.,Ltd." /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td sha256 /fd sha256 "D:\Projects\reveng\auto_mosaic\installer\installer\Installer.exe"
+
+
+今日
+
+つの 22:07
+大阪ですからねー
+「ミーティング グループ チャット」宛てのメッセージは、チームチャットのミーティング グループ チャットにも表示されます
+このミーティングは参加者数が多いため、参加または退出したユーザーに対するシステム メッセージは無効になっています
+
+仮想ギャラリー 22:10
+pdfなら売ってるはずですよ
+
+あなた 22:11
+定価が4,180円ですね
+
+ガライ＠galaiworks 22:11
+https://www.oreilly.co.jp/books/9784814401130/
+
+ZOOM用アカウント 22:14
+22時〜　AI開発＠ハヤシシュンスケさんの情報を徹底的に研究していこう！
+23時〜　AI美女生成＠ネットに落ちている可愛い顔のプロンプトを試していこう！
+
+仮想ギャラリー 22:18
+githubのURLをuithubに変えたらプロジェクトの内容を全てテキストでコピー出来るので
+Google AI studioのシステムインストラクションに入れて質問するといい感じに回答してくれますよ
+
+hiromi maeo 22:22
+面白いですね。私はシュンスケさんのgithubのデータ2ディープリサーチで解析させて、それをAI Stusioでアプリにしてもらってみたりしました。
+
+hiromi maeo 22:36
+b
+
+ZOOM用アカウント 22:37
+８９８８８８
+
+Manome 22:37
+88888
+
+hiromi maeo 22:37
+888888
+
+あん 22:37
+88888
+
+仮想ギャラリー 22:37
+888888
+
+ケンド 22:37
+88888888
+
+あなた 22:37
+88888888
+
+とら子 22:38
+88888888
+
+ZOOM用アカウント 22:38
+https://autonomous-ai-agent-report-generator-356121100740.us-west1.run.app/
+
+hiromi maeo 22:42
+私も持ってます
+
+ZOOM用アカウント 22:45
+https://x.com/The_AGI_WAY/status/1780793414914842673
+
+仮想ギャラリー 22:49
+今わかりました
+
+ZOOM用アカウント 22:53
+８８８８
+
+hiromi maeo 22:53
+888888
+
+Manome 22:53
+8888
+
+ケンド 22:53
+88888888
+
+mitsu104 22:53
+888888
+
+仮想ギャラリー 22:53
+888888
+
+あなた 22:53
+88888888
+
+hiromi maeo 22:57
+最近シュンスケさんの作るものがより神がかってますね。
+
+仮想ギャラリー 23:02
+マンガ描けた方がいいですよね
+
+ZOOM用アカウント 23:03
+https://veibecording.unikoukokun.com/
+
+仮想ギャラリー 23:05
+今月始めたCG集が10万くらいで、マンガとセリフ付きCG集も出せるようにしないとなぁって思ってます
+
+仮想ギャラリー 23:05
+卸10くらいですね　今8万ちょっとです
+
+あかさたなs 23:08
+れんさんにおすすめされて私もEagle買いましたが、それでユニコさんとかにずっとでてたProjectEagleの正体がわかりました・・！
+
+あかさたなs 23:13
+はい。まさしく詰まってます・・・RT50xxでADetailer使えないです🥹
+
+仮想ギャラリー 23:15
+ほしい！ｗ
+
+あかさたなs 23:15
+おお
+
+ZOOM用アカウント 23:15
+Anime ArtFlow Illustrious-XL
+
+ガライ＠galaiworks 23:16
+美女生成全くわからないんで教えて下さい。今のうちダウンロードって何があったんですか？
+
+ZOOM用アカウント 23:16
+888888
+
+hiromi maeo 23:16
+888888
+
+あかさたなs 23:16
+8888888888
+
+まこと 23:16
+88888888
+
+仮想ギャラリー 23:16
+888888　げっと！
+
+フェリシア 23:16
+8888888
+
+つの 23:16
+8888888
+
+鳥取花子 23:16
+888888
+
+家崎 寿 23:16
+88888
+
+ZOOM用アカウント 23:16
+best quality,masterpiece,high sensitivity,high resolution,detailed depiction,Slender Woman,A beautiful girl,white pale skin,cute mouth,cute eye,high nose,smooth skin,perfect legs according to anatomy,perfect hands according to anatomy,5 fingers,reflections,shot with Canon EOS R5,50mm lens,f/1.8,8k resolution,ray tracing,realistic shadow quality,realistic reflection quality,Realistic light quality,Masterpiece,high definition,very detailed,realistic,photorealistic,RAW photo,beautiful detailed face,Detailed Hair Texture,perfect body,beautiful face,anatomically correct body and face,
+A relaxed woman lying sideways on the couch while holding a phone near her face,her tight shirt hugging her form,soft pajama pants loosely folded at her hip revealing subtle curve,
+tight shirt outline,low-rise pants,visible clothing fold,cozy lazy mood,
+
+よねさん 23:16
+88888
+
+ZOOM用アカウント 23:21
+Chronos Anime Unlimited
+
+あかさたなs 23:23
+あータグ付けとか使いこなせてないです・・！ありがた・・・！
+
+ZOOM用アカウント 23:25
+1girl, solo, detailed background, backdrop, pastel color, dreamy, soft shading, vibrant, volumetric lighting, dramatic shadow, dappled sunlight, high angle, side view, yelan_genshin impact, long sleeve, dress, puffy sleeves, white collar, blue dress, pleated dress, earring, arm rest, indoor interior, window, window shadow, table, drink, glass, cherry, Scandinavian , sitting, crossed legs
+
+あかさたなs 23:29
+マスク貫通してる・・！
+
+ZOOM用アカウント 23:30
+Shiitake-Mix
+
+仮想ギャラリー 23:32
+パクりまくってエロい表情とポーズを覚えましたｗ
+大学院出てますって人も居ましたね
+
+ZOOM用アカウント 23:35
+https://unikoukokun.com/
+
+仮想ギャラリー 23:35
+院まで行く人って結構いるもんなんですか？
+
+ZOOM用アカウント 23:35
+https://s.lmes.jp/landing-qr/1657937154-ZxeaYPRw?uLand=c4yDdp
+https://civitai.com/search/images?sortBy=images_v6&query=japanese%20real&baseModel=Illustrious&baseModel=NoobAI&baseModel=Pony&baseModel=PonyPony
+
+zoom 23:38
+コメント失礼します！
+今は何をしているのでしょうか？
+何かを探している時間なのでしょうか？
+
+仮想ギャラリー 23:39
+Nova Flat XL　の最新版が13時間前に出てます！
+皆さん忘れずに！ｗ
+
+zoom 23:39
+ありがとうございます！
+
+ZOOM用アカウント 23:40
+pov angle,detailed lip,focus seductive lips,dark room,seductive face,black see-through shirt,shorts,middle tits,cleavage,slender,short girl,black short hair,japanese girl,realistic,masterpiece,best quality,
+
+仮想ギャラリー 23:42
+civitaiにありましたよ
+
+あかさたなs 23:42
+https://civitai.com/models/1240874/nova-flat-xl
+
+家崎 寿 23:43
+stability matrix はヒットしないこと多いです
+CivitAIから直接なら出ますよ
+
+仮想ギャラリー 23:44
+僕が好きなだけかもですｗ
+
+ZOOM用アカウント 23:46
+88888
+
+あかさたなs 23:47
+8888888888
+
+zoom 23:47
+88888888
+
+まこと 23:47
+8888888
+
+あん 23:47
+88888
+
+たにさん 23:47
+888888888
+
+フェリシア 23:47
+888888
+
+よねさん 23:47
+88888
+
+カスミソウ 23:47
+8888
+
+隼人 渡辺 23:47
+88888
+
+ZOOM用アカウント 23:51
+お疲れ様でした！！！

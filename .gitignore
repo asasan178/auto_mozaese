@@ -30,8 +30,7 @@ config/first_run_complete
 chat_history/
 conversation_logs/
 
-# Git公開手順ガイド（内部用ドキュメント）
-docs/GIT_PUBLICATION_GUIDE.md
+# Git公開手順ガイド（内部用ドキュメントは .local.md に統一）
 
 # 一時的なファイル
 nul
@@ -53,6 +52,9 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+
+# Local markdown files for private use (do not track)
+*.local.md
 downloads/
 eggs/
 .eggs/

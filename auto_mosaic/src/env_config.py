@@ -5,7 +5,7 @@
 import os
 import hashlib
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 
 try:
     from dotenv import load_dotenv
@@ -160,6 +160,27 @@ class EnvironmentConfig:
         debug = os.getenv('DEBUG_MODE', 'false').strip().lower()
         return debug in ('true', '1', 'yes', 'on')
     
+    def get_discord_config(self) -> Dict[str, Any]:
+        """Discord設定を統合して取得"""
+        guild_configs = self.get_discord_guild_configs()
+        
+        return {
+            "client_id": self.get_discord_client_id() or "demo_client_id",
+            "client_secret": self.get_discord_client_secret() or "demo_client_secret",
+            "guilds": [
+                {
+                    "guild_id": guild["guild_id"],
+                    "name": guild["name"],
+                    "required_roles": guild["required_roles"]
+                }
+                for guild in guild_configs
+            ],
+            "redirect_uri": self.get_discord_redirect_uri(),
+            "scopes": self.get_discord_scopes(),
+            "max_failures": self.get_discord_max_consecutive_failures(),
+            "cooldown": self.get_discord_role_check_cooldown()
+        }
+
     def is_developer_mode(self) -> bool:
         """開発者モードの状態を取得"""
         # 1. .developer_modeファイルによる判定
